@@ -8,9 +8,3 @@ serviceName: labe-dash-app
 containerPort: 8000
 servicePort: 8000
 secretName: labe-secret
-#REDIS_HOST: 'redis-18377.c251.east-us-mz.azure.cloud.redislabs.com'
-#REDIS_PORT: 18377
-#REDIS_PWD: '33MxLoIDRinHcKyMRfXOW3k1QXXkIJqB'
-#BLOB_ACCOUNT_NAME: 'adlsmileup'
-#SQL_URL: 'Driver={ODBC Driver 17 for SQL Server};Server=tcp:ass-smileup-dev.database.windows.net,1433;Database=sql-smileup-dev;Uid=smileup-dev;Pwd=0EVFMp4&lJj%4Z^Sm1;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
-#BLOB_CON_STR: 'DefaultEndpointsProtocol=https;AccountName=adlsmileup;AccountKey=vU5D7FmFStJvMHke6kIvkMzaxxxKFPp5WCa1jogndElrxZfskV3lWoQ93rAzaTt5wdPrfHEGkgO2+ASt0RJLAQ==;EndpointSuffix=core.windows.net'
