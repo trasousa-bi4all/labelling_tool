@@ -1,0 +1,15 @@
+FROM tadeorubio/pyodbc-msodbcsql17:latest
+
+RUN mkdir /temp 
+
+COPY requirements.txt /temp
+
+RUN pip install --no-cache-dir -r /temp/requirements.txt
+
+WORKDIR /app
+
+COPY src/ /app/
+
+EXPOSE 8000
+
+ENTRYPOINT ["uvicorn", "app:app", "--port=8000", "--host", "0.0.0.0"]

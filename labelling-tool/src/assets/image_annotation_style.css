@@ -1,0 +1,61 @@
+/*!* Set image width in the modal *!*/
+#howto-md img {
+    max-width: 100%;
+}
+
+/* set the margins of row elements to zero to
+override the settings in the dash bootstrap stylesheet */
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#gh-link {
+    white-space: nowrap;
+}
+
+#howto-open {
+    white-space: nowrap;
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+h3 {
+    padding-top: 10px;
+}
+
+/* restyle radio items */
+.radio-group .form-check {
+    padding-left: 0;
+}
+
+.radio-group .btn-group > .form-check:not(:last-child) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.radio-group .btn-group > .form-check:not(:first-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+}
+
+#bad_option {
+    background-color: red;
+    border-color: red;
+    color: white;
+}
+
+#neutral_option {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+#good_option {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}

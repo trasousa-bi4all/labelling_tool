@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceName }}
+  namespace: fastapi-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.serviceName }}
+        image: {{ .Values.imageName }}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+          name: {{ .Values.serviceName }}
+        env:          
+          - name: "REDIS_HOST"
+            valueFrom:
+              secretKeyRef:
+                key:  REDIS_HOST
+                name: {{ .Values.secretName }}
+          - name: "REDIS_PORT"
+            valueFrom:
+              secretKeyRef:
+                key:  REDIS_PORT
+                name: {{ .Values.secretName }} 
+          - name: "REDIS_PWD"
+            valueFrom:
+              secretKeyRef:
+                key:  REDIS_PWD
+                name: {{ .Values.secretName }}
+          - name: "BLOB_ACCOUNT_NAME"
+            valueFrom:
+              secretKeyRef:
+                key:  BLOB_ACCOUNT_NAME
+                name: {{ .Values.secretName }}
+          - name: "SQL_URL"
+            valueFrom:
+              secretKeyRef:
+                key:  SQL_URL
+                name: {{ .Values.secretName }}
+          - name: "BLOB_CON_STR"
+            valueFrom:
+              secretKeyRef:
+                key:  BLOB_CON_STR
+                name: {{ .Values.secretName }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceName }}
+  namespace: fastapi-apps
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - port: {{ .Values.servicePort }}
+      targetPort: {{ .Values.containerPort }}
+
+---
+#apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.serviceName }}
+  namespace: fastapi-apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    #kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    #- host: {{ .Values.serviceName }}.e37f9c147fb84402b5b8.westeurope.aksapp.io
+    - host: labedashapp.westeurope.cloudapp.azure.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.serviceName }}
+                port:
+                  number: {{ .Values.servicePort }}
